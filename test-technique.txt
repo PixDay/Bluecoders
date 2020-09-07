@@ -1,0 +1,31 @@
+################################################################################
+#                         TEST TECHNIQUE - BLUECODERS                          #
+################################################################################
+
+Vous devez développer un petit projet fullstack de type TODO list, composé de :
+
+ - Une application front-end sur laquelle on pourra :
+   - Créer un nouveau TODO
+   - Afficher les TODO existants
+   - Editer un TODO
+   - Mettre en TODO en DONE
+   - Supprimer un TODO
+
+ - Un back-end permettant de gérer les données
+
+ - Un dépôt git contenant l'ensemble du projet, de quoi l'installer et le
+   démarrer facilement
+
+Vous serez évalué sur la partie purement fonctionnelle mais aussi et surtout sur
+les choix techniques, l'architecture et l'implémentation (donc aussi la propreté
+du code).
+
+Quelques bonus :
+  - Système d'utilisateurs
+  - Utilisation de Docker
+  - Websockets
+
+Stack imposée :
+  - Front: VueJS
+  - Back: NodeJS
+  - DB: MongoDB
