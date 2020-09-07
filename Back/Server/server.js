@@ -1,13 +1,24 @@
 const app = require('express')();
 const connectDb = require("./src/connection");
 const PORT = 8080;
+const user = require("./model/User.model");
 
-app.get("/users", (req, res) => {
- res.send("Get users \n");
+app.get("/user", (req, res) => {
+    user.find({}, (err, user) => {
+        console.log(user)
+        res.send("test" );
+    })
 });
 
-app.get("/user-create", (req, res) => {
- res.send("User created \n");
+app.post("/user-create", async (req, res) => {
+    const user = user({firstname: req.body.firstname, name: req.body.name, password: req.body.password, mail: req.body.mail});
+
+    try {
+        await user.save();
+        res.redirect("/");
+    } catch (err) {
+        res.redirect("/")
+    }
 });
 
 app.get("/user-delete", (req, res) => {
