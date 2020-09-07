@@ -1,5 +1,4 @@
-const express = require("express");
-const app = express();
+const app = require('express')();
 const connectDb = require("./src/connection");
 const PORT = 8080;
 
@@ -25,4 +24,5 @@ app.get("/todo", (req, res) => {
 
 app.listen(PORT, function() {
     console.log(`Listening on ${PORT}`);
+    console.log(connectDb())
 });
