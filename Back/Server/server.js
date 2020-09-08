@@ -1,24 +1,36 @@
 const app = require('express')();
+const PORT = 4000;
+const bodyParser = require('body-parser')
 const connectDb = require("./src/connection");
-const PORT = 8080;
 const user = require("./model/User.model");
 
-app.get("/user", (req, res) => {
+app.use(bodyParser.urlencoded({ extended: true }))
+app.use(bodyParser.json())
+
+app.get("/users", (req, res) => {
+    console.log(connectDb());
     user.find({}, (err, user) => {
-        console.log(user)
-        res.send("test" );
+        console.log("user : ");
+        console.log(user);
+        res.send("users");
     })
 });
 
 app.post("/user-create", async (req, res) => {
-    const user = user({firstname: req.body.firstname, name: req.body.name, password: req.body.password, mail: req.body.mail});
+    console.log("body : ");
+    console.log(req.body);
+    if (req.body != undefined) {
+        const givenUser = new user({firstname: req.body.firstname, name: req.body.name, password: req.body.password, mail: req.body.mail});
 
-    try {
-        await user.save();
-        res.redirect("/");
-    } catch (err) {
-        res.redirect("/")
+        try {
+            await givenUser.save();
+            res.redirect("/");
+        } catch (err) {
+            res.redirect("/")
+        }
     }
+    else
+        console.log("No body");
 });
 
 app.get("/user-delete", (req, res) => {
