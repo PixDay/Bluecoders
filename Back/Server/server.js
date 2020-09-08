@@ -1,51 +1,44 @@
 const app = require('express')();
 const PORT = 4000;
 const bodyParser = require('body-parser')
-const connectDb = require("./src/connection");
-const user = require("./model/User.model");
+const MongoClient = require('mongodb').MongoClient;
+const User = require("./model/User.model");
+const mongoDB = require("./src/connection");
+const connectDb = require('./src/connection');
 
-app.use(bodyParser.urlencoded({ extended: true }))
-app.use(bodyParser.json())
 
-app.get("/users", (req, res) => {
-    console.log(connectDb());
-    user.find({}, (err, user) => {
-        console.log("user : ");
-        console.log(user);
-        res.send("users");
-    })
-});
+MongoClient.connect('mongodb://root:root@127.0.0.1/todolist', {useUnifiedTopology: true}).then(client => {
+    console.log('Connected to Database')
+    const db = client.db('todolist')
+    const userCollection = db.collection('User');
+    const todoCollection = db.collection('Todo');
 
-app.post("/user-create", async (req, res) => {
-    console.log("body : ");
-    console.log(req.body);
-    if (req.body != undefined) {
-        const givenUser = new user({firstname: req.body.firstname, name: req.body.name, password: req.body.password, mail: req.body.mail});
+    app.use(bodyParser.urlencoded({ extended: true }))
+    app.use(bodyParser.json())
 
-        try {
-            await givenUser.save();
-            res.redirect("/");
-        } catch (err) {
-            res.redirect("/")
-        }
-    }
-    else
-        console.log("No body");
-});
+    app.post("/connect", async (req, res) => {
+        console.log("connecting")
+        
+    });
+    
+    app.post("/usercreate", async (req, res) => {
+        const givenUser = new User({firstname: req.body.firstname, name: req.body.name, password: req.body.password, mail: req.body.mail});
 
-app.get("/user-delete", (req, res) => {
-    res.send("User deleted \n");
-});
+        userCollection.insertOne(givenUser).then(result => {
+            console.log(result)
+        }).catch(error => console.error(error));
+        res.redirect("/");
+    });
+    
+    app.get("/userdelete", (req, res) => {
+        res.send("User deleted \n");
+    });
+    
+    app.get("/usermodify", (req, res) => {
+        res.send("User modified \n");
+    });
 
-app.get("/user-modify", (req, res) => {
-    res.send("User modified \n");
-});
-
-app.get("/todo", (req, res) => {
-    res.send("todo list \n");
-});
-
-app.listen(PORT, function() {
-    console.log(`Listening on ${PORT}`);
-    console.log(connectDb())
+    app.listen(PORT, function() {
+        console.log(`Listening on ${PORT}`);
+    });
 });
