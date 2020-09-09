@@ -41,17 +41,39 @@ MongoClient.connect('mongodb://root:root@localhost:27017', {useUnifiedTopology: 
 
     /* TODO */
     app.get("/todolist", (req, res) => {
-        res.send("Todo list");
+        todoCollection.find({}, {title: 1, description: 1}).toArray().then(result => {
+            console.log(result);
+        });
+        res.send("Todolist");
     })
 
     app.post("/todocreate", async (req, res) => {
-        const givenTodo = new Todo({id: req.body.id, title: req.body.title, description: req.body.description, state: "todo"});
+        const givenTodo = new Todo({ reference: req.body.reference, title: req.body.title, description: req.body.description, state: "todo"});
 
         todoCollection.insertOne(givenTodo).then(result => {
             console.log(result)
         }).catch(error => console.error(error));
         res.redirect("/");
     });
+
+    app.post("/tododelete", async (req, res) => {
+        const givenTodo = new Todo({reference: req.body.reference, title: req.body.title, description: req.body.description, state: "todo"});
+
+        todoCollection.deleteOne(givenTodo).then(result => {
+            console.log(result);
+        }).catch(error => console.error(error));
+        res.redirect("/");
+    })
+
+    app.post("/todoupdate", async (req, res) => {
+        const givenTodo = new Todo({ title: req.body.title, description: req.body.description, state: "todo"});
+
+        console.log(givenTodo);
+        todoCollection.findOneAndUpdate({ title: "Bluecoders"}, givenTodo).then(result => {
+            console.log(result);
+        }).catch(error => console.error(error));
+        res.redirect("/");
+    })
 
     app.listen(PORT, function() {
         console.log(`Listening on ${PORT}`);
