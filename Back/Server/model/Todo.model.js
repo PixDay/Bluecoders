@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 
 const todoSchema = new mongoose.Schema({
-    id: Number,
+    reference: Number,
     title: String,
     description: String,
     state: String
