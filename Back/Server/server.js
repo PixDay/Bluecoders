@@ -7,7 +7,7 @@ const mongoDB = require("./src/connection");
 const connectDb = require('./src/connection');
 
 
-MongoClient.connect('mongodb://root:root@127.0.0.1/todolist', {useUnifiedTopology: true}).then(client => {
+MongoClient.connect('mongodb://root:root@localhost:27017', {useUnifiedTopology: true}).then(client => {
     console.log('Connected to Database')
     const db = client.db('todolist')
     const userCollection = db.collection('User');
@@ -17,8 +17,9 @@ MongoClient.connect('mongodb://root:root@127.0.0.1/todolist', {useUnifiedTopolog
     app.use(bodyParser.json())
 
     app.post("/connect", async (req, res) => {
-        console.log("connecting")
-        
+        userCollection.findOne({}).then(result => {
+            console.log(result)
+        }).catch(error => console.error(error));
     });
     
     app.post("/usercreate", async (req, res) => {
