@@ -3,12 +3,16 @@ const PORT = 4000;
 const bodyParser = require('body-parser')
 const MongoClient = require('mongodb').MongoClient;
 
-import {User, Todo} from "./model/Schemas.model";
+/*import {User, Todo} from "./model/Schemas.model";
 import * as bcrypt from "bcryptjs";
 import {readFileSync} from "fs";
 import * as jwt from "jsonwebtoken";
-
-const privateKey = readFileSync(__dirname + "/.privatekey");
+*/
+const Model = require("./model/Schemas.model");
+const bcrypt = require("bcryptjs");
+const readFileSync = require("fs");
+const jwt = require("jsonwebtoken");
+const privateKey = "leandreleboss"
 
 MongoClient.connect('mongodb://root:root@localhost:27017', {useUnifiedTopology: true}).then(client => {
     console.log('Connected to Database')
@@ -24,12 +28,12 @@ MongoClient.connect('mongodb://root:root@localhost:27017', {useUnifiedTopology: 
     app.post('/login', async (req, res) => {
         const mail = req.body.mail;
         const password = req.body.password;
-        const user = await userCollection.findOne({mail: mail});
-        
-        if (!user || !bcrypt.compareSync(password, user.password))
-            res.status(400).send("Unknown user");
-        const token = jwt.sign({id: user._id}, privateKey);
-        res.status(200).send(token);
+        await userCollection.findOne({mail: mail}).then(result => {
+            if (!result || !bcrypt.compareSync(password, result.password))
+                res.status(400).send("Unknown user");
+            const token = jwt.sign({id: result._id}, privateKey);
+            res.status(200).send(token);
+        });
     });
 
     app.post('/register', async (req, res) => {
@@ -38,7 +42,7 @@ MongoClient.connect('mongodb://root:root@localhost:27017', {useUnifiedTopology: 
         const mail = req.body.mail;
         const password = req.body.password;
 
-        const user = new User({firstname: firstname, name: name, mail: mail, password: bcrypt.hashSync(password, saltRound)});
+        const user = new Model.User({firstname: firstname, name: name, mail: mail, password: bcrypt.hashSync(password, saltRound)});
         await userCollection.save(user);
         res.status(200).send("User created successfully");
     });
@@ -49,7 +53,7 @@ MongoClient.connect('mongodb://root:root@localhost:27017', {useUnifiedTopology: 
         const description = req.body.description;
         const token = jwt.verify(req.header.authorization, privateKey);
         
-        const todo = new Todo({user: token.id, title: title, description: description, checked: false})
+        const todo = new Model.Todo({user: token.id, title: title, description: description, checked: false})
         await todoCollection.save(todo);
         res.status(200).send("Todo created successfully");
     });
@@ -68,7 +72,7 @@ MongoClient.connect('mongodb://root:root@localhost:27017', {useUnifiedTopology: 
         const description = req.body.description;
         const checked = req.body.checked;
         const userId = jwt.verify(req.header.authorization, privateKey);
-        const todo = new Todo({user: userId, title: title, description: description, checked: checked});
+        const todo = new Model.Todo({user: userId, title: title, description: description, checked: checked});
 
         await todoCollection.findOneAndUpdate({_id: todoId, user: userId}, todo);
         res.status(200).send("Todo deleted");
