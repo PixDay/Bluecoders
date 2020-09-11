@@ -10,8 +10,8 @@
         <label>Password</label>
         <input type="password" class="form-control form-control-lg" required/>
       </div>
-      <button type="submit" class="btn btn-success btn-lg btn-block"><router-link :to="{name: 'todolist'}" tag="white-link">Login</router-link></button>
-      <button class="btn btn-primary btn-lg btn-block"><router-link :to="{name: 'signup'}" tag="white-link">Register</router-link></button>
+      <a type="submit" class="btn btn-success btn-lg btn-block"><router-link :to="{name: 'todolist'}" tag="white-link">Login</router-link></a>
+      <a class="btn btn-primary btn-lg btn-block"><router-link :to="{name: 'signup'}" tag="white-link">Register</router-link></a>
     </form>
   </div>
 </template>
