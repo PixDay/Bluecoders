@@ -1,6 +1,7 @@
 * 
 {
     box-sizing: border-box;
+    border-radius: 0 !important;
 }
   
 body 
@@ -11,24 +12,28 @@ body
     font-weight: 400;
 }
   
-body, html, .App, .vue-tempalte, .vertical-center {
+body, html, .App, .vue-tempalte, .vertical-center 
+{
     width: 100%;
     height: 100%;
 }
   
-.navbar-light {
+.navbar-light 
+{
     background-color: #ffffff;
     box-shadow: 0px 14px 80px rgba(34, 35, 58, 0.2);
 }
   
-.vertical-center {
+.vertical-center 
+{
     display: flex;
     text-align: left;
     justify-content: center;
     flex-direction: column;    
 }
   
-.inner-block {
+.inner-block 
+{
     width: 450px;
     margin: auto;
     background: #ffffff;
@@ -38,23 +43,27 @@ body, html, .App, .vue-tempalte, .vertical-center {
     transition: all .3s;
 }
   
-.vertical-center .form-control:focus {
+.vertical-center .form-control:focus 
+{
     border-color: #2554FF;
     box-shadow: none;
 }
   
-.vertical-center h3 {
+.vertical-center h3 
+{
     text-align: center;
     margin: 0;
     line-height: 1;
     padding-bottom: 20px;
 }
   
-label {
+label 
+{
     font-weight: 500;
 }
   
-.forgot-password, .forgot-password a {
+.forgot-password, .forgot-password a 
+{
     text-align: right;
     font-size: 13px;
     padding-top: 10px;
@@ -62,11 +71,13 @@ label {
     margin: 0;
 }
   
-.forgot-password a {
+.forgot-password a 
+{
     color: #FFFFFF;
 }
   
-.social-icons {
+.social-icons 
+{
     text-align: center;
     font-family: "Open Sans";
     font-weight: 300;
@@ -74,13 +85,15 @@ label {
     color: #222222;
 }
   
-.social-icons ul {
+.social-icons ul 
+{
     list-style: none;
     margin: 0;
     padding: 0;
 }
 
-.social-icons ul li {
+.social-icons ul li 
+{
     display: inline-block;
     zoom: 1;
     width: 65px;
@@ -93,14 +106,16 @@ label {
     background: #f4f6ff;
 }
   
-.social-icons ul li a {
+.social-icons ul li a 
+{
     display: block;
     font-size: 1.4em;
     margin: 0 5px;
     text-decoration: none;
 }
 
-.social-icons ul li a i {
+.social-icons ul li a i 
+{
     -webkit-transition: all 0.2s ease-in;
     -moz-transition: all 0.2s ease-in;
     -o-transition: all 0.2s ease-in;
@@ -108,11 +123,23 @@ label {
     transition: all 0.2s ease-in;
 }
   
-.social-icons ul li a:focus i, .social-icons ul li a:active i {
+.social-icons ul li a:focus i, .social-icons ul li a:active i 
+{
     transition: none;
     color: #222222;
 }
 
-.white-link {
-    color: #ffffff;
+.white-link 
+{
+    color: #FFFFFF;
+}
+
+button 
+{
+    color: #FFFFFF !important;
+}
+
+.widthbutton 
+{
+    width: 100%;
 }
