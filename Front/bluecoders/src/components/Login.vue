@@ -10,7 +10,7 @@
         <label>Password</label>
         <input type="password" class="form-control form-control-lg" />
       </div>
-      <button type="submit" class="btn btn-dark btn-lg btn-block">Sign In</button>
+      <button type="submit" class="btn btn-dark btn-lg btn-block"><router-link :to="{name: 'todolist'}" tag="white-link">Sign In</router-link></button>
       <button class="btn btn-primary btn-lg btn-block"><router-link :to="{name: 'signup'}" tag="white-link">Register</router-link></button>
     </form>
   </div>
