@@ -13,6 +13,11 @@ Vue.use(VueRouter)
     path: '/login',
     name: 'login',
     component: () => import('../components/Login.vue')
+  },
+  {
+    path: '/todolist',
+    name: 'todolist',
+    component: () => import('../components/Todo.vue')
   }
 ]
 
