@@ -23,6 +23,11 @@ MongoClient.connect('mongodb://root:root@localhost:27017', {useUnifiedTopology: 
 
     app.use(bodyParser.urlencoded({ extended: true }))
     app.use(bodyParser.json())
+    app.use(function(req, res, next) {
+        res.header("Access-Control-Allow-Origin", "*");
+        res.header("Access-Control-Allow-Headers", "*");
+        next();
+    });
 
     /* USERS */
     app.post('/login', async (req, res) => {
@@ -37,12 +42,14 @@ MongoClient.connect('mongodb://root:root@localhost:27017', {useUnifiedTopology: 
     });
 
     app.post('/register', async (req, res) => {
+        console.log("CREATEING USER");
         const firstname = req.body.firstname;
         const name = req.body.name;
         const mail = req.body.mail;
         const password = req.body.password;
 
         const user = new Model.User({firstname: firstname, name: name, mail: mail, password: bcrypt.hashSync(password, saltRound)});
+        console.log(user);
         await userCollection.save(user);
         res.status(200).send("User created successfully");
     });
