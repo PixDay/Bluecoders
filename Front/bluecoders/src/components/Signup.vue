@@ -47,7 +47,6 @@
         this.data = data;
         console.log("DATA : ");
         console.log(data);
-        new Promise(resolve => setTimeout(resolve, 5000));
       }
     }
   }
