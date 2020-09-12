@@ -38,14 +38,12 @@
     },
     methods: {
       createUser() {
-        console.log("CREATING USER");
         const data = axios.post("http://localhost:4000/register", {firstname: this.firstname, name: this.name, mail: this.mail, password: this.password}).then((response) => {
-  console.log(response);
-}, (error) => {
-  console.log(error);
-});
+          console.log(response);
+        }, (error) => {
+          console.log(error);
+        });
         this.data = data;
-        console.log("DATA : ");
         console.log(data);
       }
     }

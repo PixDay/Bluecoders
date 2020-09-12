@@ -17,9 +17,28 @@
 </template>
 
 <script>
-    export default {
-        data() {
-            return {}
-        }
+  import axios from 'axios';
+
+  export default {
+    data() {
+      return {
+        postBody: '',
+        errors: [],
+        mail: '',
+        password: ''
+      }
+    },
+    methods: {
+      connect() {
+        const data = axios.post("http://localhost:4000/register", {firstname: this.firstname, name: this.name, mail: this.mail, password: this.password}).then((response) => {
+            console.log(response);
+          }, (error) => {
+            console.log(error);
+        });
+        this.data = data;
+        
+        console.log(data);
+      }
     }
+  }
 </script>
