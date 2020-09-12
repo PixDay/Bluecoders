@@ -1,0 +1,11 @@
+{
+	"name": "users",
+	"version": "1.0.0",
+	"description": "Todo's Users service",
+	"main": "app.ts",
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1"
+	},
+	"author": "Adrien Colombier",
+	"license": "ISC"
+}

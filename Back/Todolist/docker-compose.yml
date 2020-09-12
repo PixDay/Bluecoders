@@ -1,0 +1,20 @@
+version: "3"
+services:
+    users:
+        image: node:latest
+        restart: always
+        build: .
+        command: sh -c 'cd /usr/app/dir; npm run userService'
+        volumes:
+            - .:/usr/app/dir
+        ports:
+            - "8080:8080"
+    todos:
+        image: node:latest
+        restart: always
+        build: .
+        command: sh -c 'cd /usr/app/dir; npm run todoService'
+        volumes:
+            - .:/usr/app/dir
+        ports:
+            - "8081:8080"

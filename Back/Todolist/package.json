@@ -1,0 +1,60 @@
+{
+	"name": "api",
+	"version": "1.0.0",
+	"description": "Todo's API",
+	"main": "app.js",
+	"scripts": {
+		"start": "docker-compose up -d users todos",
+		"userService": "nodemon --exec ts-node src/services/users/app.ts --watch src/services/users",
+		"todoService": "nodemon --exec ts-node src/services/todos/app.ts --watch src/services/todos"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/PixDay/Bluecoders.git"
+	},
+	"author": "Adrien Colombier",
+	"license": "ISC",
+	"bugs": {
+		"url": "https://github.com/PixDay/Bluecoders/issues"
+	},
+	"homepage": "https://github.com/PixDay/Bluecoders",
+	"nyc": {
+		"extension": [
+			".ts",
+			".tsx"
+		],
+		"exclude": [
+			"**/*.d.ts"
+		],
+		"reporter": [
+			"text"
+		],
+		"all": true
+	},
+	"dependencies": {
+		"@koa/cors": "^3.0.0",
+		"@types/node": "^12.12.34",
+		"bcryptjs": "^2.4.3",
+		"jsonwebtoken": "^8.5.1",
+		"koa": "^2.7.0",
+		"koa-bodyparser": "^4.2.1",
+		"koa-busboy": "^1.2.0",
+		"koa-logger": "^3.2.0",
+		"koa-router": "^7.4.0",
+		"koa-sslify": "^4.0.3",
+		"mongoose": "^5.9.11",
+		"nodemon": "^1.19.4",
+		"ts-node": "^8.8.2",
+		"tsconfig-paths": "^3.9.0",
+		"typescript": "^3.7.2"
+	},
+	"devDependencies": {
+		"@types/mocha": "^5.2.7",
+		"chai": "^4.2.0",
+		"chai-http": "^4.3.0",
+		"expect": "^24.8.0",
+		"mocha": "^6.2.2",
+		"nyc": "^14.1.1",
+		"socket.io-client": "^2.2.0"
+	}
+}

@@ -1,0 +1,27 @@
+{
+	"compilerOptions": {
+		"target": "esnext",
+		"watch": false,
+		"lib": ["dom", "es2017"],
+		"module": "commonjs",
+		"outDir": "./build",
+		"baseUrl": ".",
+		"paths": {
+			"*": [
+				"*",
+				"src/services/*"
+			],
+			"@/*": [
+				"src/*"
+			]
+		}
+	},
+	"include": [
+		"config/*",
+		"src/**/*"
+	],
+	"exclude": [
+		"node_modules",
+		"**/*.spec.ts"
+	]
+}
