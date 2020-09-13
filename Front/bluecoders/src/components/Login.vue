@@ -10,8 +10,9 @@
         <label>Password</label>
         <input type="password" class="form-control form-control-lg" required/>
       </div>
-      <a type="submit" class="btn btn-success btn-lg btn-block"><router-link :to="{name: 'todolist'}" class="white-link">Login</router-link></a>
-      <a class="btn btn-primary btn-lg btn-block"><router-link :to="{name: 'signup'}" class="white-link">Create an account</router-link></a>
+      <router-link :to="{name: 'todolist'}" class="white-link"><button type="submit" class="btn btn-success btn-lg btn-block">Login</button></router-link>
+      <br>
+      <router-link :to="{name: 'signup'}" class="white-link"><button class="btn btn-primary btn-lg btn-block">Create an account</button></router-link>
     </form>
   </div>
 </template>
@@ -30,7 +31,7 @@
     },
     methods: {
       connect() {
-        const data = axios.post("http://localhost:4000/register", {firstname: this.firstname, name: this.name, mail: this.mail, password: this.password}).then((response) => {
+        const data = axios.post("http://localhost:4000/login", {mail: this.mail, password: this.password}).then((response) => {
             console.log(response);
           }, (error) => {
             console.log(error);

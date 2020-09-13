@@ -18,7 +18,8 @@
         <input type="password" class="form-control form-control-lg" name="password" v-model="password" required/>
       </div>
       <button class="btn btn-success btn-lg btn-block" v-on:click="createUser()">Register</button>
-      <a class="btn btn-primary btn-lg btn-block"><router-link :to="{name: 'login'}" class="white-link">I have an account</router-link></a>
+      <br>
+      <router-link :to="{name: 'login'}" class="white-link"><button class="btn btn-primary btn-lg btn-block">I have an account</button></router-link>
   </div>
 </template>
 
