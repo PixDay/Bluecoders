@@ -58,7 +58,7 @@ MongoClient.connect('mongodb://root:root@localhost:27017', {useUnifiedTopology: 
     app.post('/todo/create', async (req, res) => {
         const title = req.body.title;
         const description = req.body.description;
-        const token = jwt.verify(req.header.authorization, privateKey);
+        const token = jwt.verify(req.headers["authorization"], privateKey);
         
         const todo = new Model.Todo({user: token.id, title: title, description: description, checked: false})
         await todoCollection.save(todo);
