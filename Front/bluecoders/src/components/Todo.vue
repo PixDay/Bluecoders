@@ -14,7 +14,7 @@
         <button type="submit" class="btn btn-danger btn-lg widthbutton"><i class="fa fa-trash"></i> Clear all</button>
         <br>
         <br>
-        <a type="submit" class="btn btn-dark btn-lg widthbutton"><router-link :to="{name: 'login'}" tag="white-link"><i class="fa fa-sign-out"></i> Log out</router-link></a>
+        <router-link :to="{name: 'login'}" class="white-link"><button type="submit" class="btn btn-dark btn-lg widthbutton"><i class="fa fa-sign-out"></i> Log out</button></router-link>
     </div>
 </template>
 
