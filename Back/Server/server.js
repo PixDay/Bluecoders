@@ -37,6 +37,7 @@ MongoClient.connect('mongodb://root:root@localhost:27017', {useUnifiedTopology: 
             if (!result || !bcrypt.compareSync(password, result.password))
                 res.status(400).send("Unknown user");
             const token = jwt.sign({id: result._id}, privateKey);
+            console.log("LOG IN");
             res.status(200).send(token);
         });
     });
@@ -60,6 +61,10 @@ MongoClient.connect('mongodb://root:root@localhost:27017', {useUnifiedTopology: 
         const description = req.body.description;
         const token = jwt.verify(req.headers["authorization"], privateKey);
         
+        console.log("TOKEN : ");
+        console.log(token);
+        console.log("TOKEN ID : ");
+        console.log(token.id);
         const todo = new Model.Todo({user: token.id, title: title, description: description, checked: false})
         await todoCollection.save(todo);
         res.status(200).send("Todo created successfully");
@@ -93,9 +98,16 @@ MongoClient.connect('mongodb://root:root@localhost:27017', {useUnifiedTopology: 
         res.status(200).send(checked.checked);
     })
 
-    app.get('/todo', async (req, res) => {
-        cursor = todoCollection.find({user: jwt.verify(req.headers["authorization"], privateKey).id}).toArray();
-        console.log(cursor);
+    app.get('/todo', (req, res) => {
+        const token = jwt.verify(req.headers["authorization"], privateKey);
+        
+        console.log("GETTING TODOS");
+        console.log("TOKEN : ");
+        console.log(token);
+        console.log("TOKEN ID : ");
+        console.log(token.id);
+        const cursor = todoCollection.find({user: token.id});
+        console.log(cursor.toArray());
         res.status(200).send("wait");
     });
 
