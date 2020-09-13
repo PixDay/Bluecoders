@@ -67,7 +67,7 @@ MongoClient.connect('mongodb://root:root@localhost:27017', {useUnifiedTopology: 
 
     app.delete('/todo/delete', async (req, res) => {
         const todoId = req.body._id;
-        const userId = jwt.verify(req.headers.authorization, privateKey);
+        const userId = jwt.verify(req.headers["authorization"], privateKey).id;
 
         await todoCollection.findOneAndDelete({_id: todoId, user: userId});
         res.status(200).send("Todo deleted");
@@ -78,7 +78,7 @@ MongoClient.connect('mongodb://root:root@localhost:27017', {useUnifiedTopology: 
         const title = req.body.title;
         const description = req.body.description;
         const checked = req.body.checked;
-        const userId = jwt.verify(req.headers.authorization, privateKey);
+        const userId = jwt.verify(req.headers["authorization"], privateKey).id;
         const todo = new Model.Todo({user: userId, title: title, description: description, checked: checked});
 
         await todoCollection.findOneAndUpdate({_id: todoId, user: userId}, todo);
@@ -87,15 +87,16 @@ MongoClient.connect('mongodb://root:root@localhost:27017', {useUnifiedTopology: 
 
     app.post('/todo/toggle/', async (req, res) => {
         const todoId = req.body._id;
-        const todo = todoCollection.findOne({_id: todoId, user: jwt.verify(req.headers.authorization, privateKey)});
+        const todo = todoCollection.findOne({_id: todoId, user: jwt.verify(req.headers["authorization"], privateKey).id});
 
-        await todoCollection.findOneAndUpdate({_id: todoId, user: jwt.verify(req.headers.authorization, privateKey), checked: todo.checked});
+        await todoCollection.findOneAndUpdate({_id: todoId, user: jwt.verify(req.headers["authorization"], privateKey).id, checked: todo.checked});
         res.status(200).send(checked.checked);
     })
 
     app.get('/todo', async (req, res) => {
-        await todoCollection.find({user: jwt.verify(req.headers.authorization, privateKey)});
-        res.status(200).send("Todo gotten");
+        cursor = todoCollection.find({user: jwt.verify(req.headers["authorization"], privateKey).id}).toArray();
+        console.log(cursor);
+        res.status(200).send("wait");
     });
 
     app.listen(PORT, function() {
