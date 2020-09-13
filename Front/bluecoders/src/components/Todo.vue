@@ -19,25 +19,27 @@
 </template>
 
 <script>
-    //import axios from 'axios';
+    import axios from 'axios';
 
-  export default {
-    data() {
-      return {
-        postBody: '',
-        errors: [],
-        title: '',
-      }
-    },
-    methods: {
-      todoCreate() {
-        /*axios.post("http://localhost:4000/todo/create", {title: this.title, description: "descr"}).then((response) => {
-            console.log(response);
-          }, (error) => {
-            console.log(error);
-        });*/
-        console.log("CREATING TODO");
-      }
-    }
+    export default {
+        data() {
+            return {
+                postBody: '',
+                errors: [],
+                title: '',
+            }
+        },
+        methods: {
+            todoCreate() {
+                const token = localStorage.getItem('user-token');
+                console.log(token);
+                axios.post("http://localhost:4000/todo/create", {title: this.title, description: "descr"}, {headers: {'Authorization': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVmNWNlN2EzZWE1YTA1ZDg1OWE3NTljZSIsImlhdCI6MTYwMDAyMzYwMX0.g1iT7JdGEQHWe9dka9pmGTzRPtXmDZ_pasVKXVP5NXo'}}).then((response) => {
+                    console.log(response);
+                }, (error) => {
+                    console.log(error);
+                });
+                console.log("CREATING TODO");
+            }
+        }
   }
 </script>

@@ -31,14 +31,14 @@
     },
     methods: {
       connect() {
-        const data = axios.post("http://localhost:4000/login", {mail: this.mail, password: this.password}).then((response) => {
+        axios.post("http://localhost:4000/login", {mail: this.mail, password: this.password}).then((response) => {
             console.log(response);
-            localStorage.setItem('user-token', response);
+            this.data = response.data;
+            localStorage.setItem('user-token', this.data);
           }, (error) => {
             localStorage.removeItem('user-token');
             console.log(error);
         });
-        this.data = data;
         this.$router.push('todolist');
       }
     }
