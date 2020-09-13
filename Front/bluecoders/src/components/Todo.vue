@@ -33,7 +33,7 @@
             todoCreate() {
                 const token = localStorage.getItem('user-token');
                 console.log(token);
-                axios.post("http://localhost:4000/todo/create", {title: this.title, description: "descr"}, {headers: {'Authorization': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVmNWNlN2EzZWE1YTA1ZDg1OWE3NTljZSIsImlhdCI6MTYwMDAyMzYwMX0.g1iT7JdGEQHWe9dka9pmGTzRPtXmDZ_pasVKXVP5NXo'}}).then((response) => {
+                axios.post("http://localhost:4000/todo/create", {title: this.title, description: "descr"}, {headers: {'Authorization': token}}).then((response) => {
                     console.log(response);
                 }, (error) => {
                     console.log(error);
