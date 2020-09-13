@@ -2,9 +2,9 @@
     <div class="vue-tempalte">
         <h2>Tasks</h2>
         <div class="input-group">
-            <input type="text" class="form-control form-control-lg" placeholder="New task"/>
+            <input type="text" class="form-control form-control-lg" placeholder="New task" v-model="title"/>
             <span class="input-group-btn">
-                <button type="submit" class="btn btn-primary btn-lg"><i class="fa fa-plus"></i> Add</button>
+                <button type="submit" class="btn btn-primary btn-lg" v-on:click="todoCreate()"><i class="fa fa-plus"></i> Add</button>
             </span>
         </div>
         <br>
@@ -19,9 +19,25 @@
 </template>
 
 <script>
-    export default {
-        data() {
-            return {}
-        }
+    //import axios from 'axios';
+
+  export default {
+    data() {
+      return {
+        postBody: '',
+        errors: [],
+        title: '',
+      }
+    },
+    methods: {
+      todoCreate() {
+        /*axios.post("http://localhost:4000/todo/create", {title: this.title, description: "descr"}).then((response) => {
+            console.log(response);
+          }, (error) => {
+            console.log(error);
+        });*/
+        console.log("CREATING TODO");
+      }
     }
+  }
 </script>
