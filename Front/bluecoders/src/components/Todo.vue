@@ -32,14 +32,25 @@
         methods: {
             todoCreate() {
                 const token = localStorage.getItem('user-token');
-                console.log(token);
+
                 axios.post("http://localhost:4000/todo/create", {title: this.title, description: "descr"}, {headers: {'Authorization': token}}).then((response) => {
                     console.log(response);
                 }, (error) => {
                     console.log(error);
                 });
-                console.log("CREATING TODO");
+            },
+            todoGet() {
+                const token = localStorage.getItem('user-token');
+                
+                axios.get("http://localhost:4000/todo", {headers: {'Authorization': token}}).then((response) => {
+                    console.log(response);
+                }, (error => {
+                    console.log(error);
+                }))
             }
+        },
+        beforeMount(){
+            this.todoGet();
         }
   }
 </script>
